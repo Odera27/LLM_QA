@@ -1,30 +1,123 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LLM Q&A System</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  
-<head>
+    <title>NLP Q&A System | Osho Ayomide</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
 <body>
-    <div class="background"></div>
-    <div class="container">
-        <h1>✨ Ask Me Anything ✨</h1>
-        <form method="POST">
-            <textarea name="question" placeholder="Type your question here..." required></textarea>
-            <button type="submit">Get Answer</button>
-        </form>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5"/>
+                        <path d="M2 12l10 5 10-5"/>
+                    </svg>
+                    <span>NLP Q&A</span>
+                </div>
+            </div>
+            
+            <div class="sidebar-content">
+                <button class="new-chat-btn" onclick="clearChat()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"/>
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                    </svg>
+                    New Conversation
+                </button>
+                
+                <div class="chat-history" id="chatHistory">
+                    <!-- Chat history items will appear here -->
+                </div>
+            </div>
+            
+            <div class="sidebar-footer">
+                <div class="student-info">
+                    <div class="student-avatar">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </div>
+                    <div class="student-details">
+                        <div class="student-name">Osho Ayomide</div>
+                        <div class="student-matric">23CG034142</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
 
-        {% if answer %}
-        <div class="answer-card">
-            <h2>Answer:</h2>
-            <p>{{ answer }}</p>
-        </div>
-        {% endif %}
+        <!-- Main Chat Area -->
+        <main class="main-content">
+            <div class="chat-wrapper">
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Welcome Screen -->
+                    <div class="welcome-container" id="welcomeScreen">
+                        <div class="welcome-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                                <line x1="12" y1="17" x2="12.01" y2="17"/>
+                            </svg>
+                        </div>
+                        <h1 class="welcome-title">NLP Question & Answering System</h1>
+                        <p class="welcome-subtitle">Using Google Gemini LLM with Text Preprocessing</p>
+                        
+                        <div class="feature-grid">
+                            <div class="feature-card">
+                                <div class="feature-icon">🔍</div>
+                                <h3>Text Preprocessing</h3>
+                                <p>Lowercasing, tokenization & punctuation removal</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">🤖</div>
+                                <h3>AI-Powered</h3>
+                                <p>Google Gemini-2.5-Flash model</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">💬</div>
+                                <h3>Natural Language</h3>
+                                <p>Ask anything in plain English</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Input Area -->
+                <div class="input-container">
+                    <form id="questionForm" class="input-form">
+                        <div class="input-group">
+                            <textarea 
+                                id="questionInput" 
+                                placeholder="Ask me anything..."
+                                rows="1"
+                                maxlength="2000"
+                                required
+                            ></textarea>
+                            <button type="submit" id="submitBtn" class="submit-btn" aria-label="Send message">
+                                <svg class="send-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="22" y1="2" x2="11" y2="13"/>
+                                    <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                                </svg>
+                                <svg class="loading-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+                                    <circle cx="12" cy="12" r="10"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="input-footer">
+                            <span class="char-count"><span id="charCount">0</span>/2000</span>
+                            <span class="model-info">Powered by Gemini</span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
     </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
 </body>
 </html>
-
