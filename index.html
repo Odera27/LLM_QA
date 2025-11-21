@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Q&A System</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  
+<head>
+<body>
+    <div class="background"></div>
+    <div class="container">
+        <h1>✨ Ask Me Anything ✨</h1>
+        <form method="POST">
+            <textarea name="question" placeholder="Type your question here..." required></textarea>
+            <button type="submit">Get Answer</button>
+        </form>
+
+        {% if answer %}
+        <div class="answer-card">
+            <h2>Answer:</h2>
+            <p>{{ answer }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
+
